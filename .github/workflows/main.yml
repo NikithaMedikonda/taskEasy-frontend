@@ -3,7 +3,7 @@ name: Build and Test
 on:
   push:
     branches:
-      - main
+      - feature/userAuthentication
 
 jobs:
   build:
@@ -16,3 +16,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run tests
+        run: npm test
+      
+      - name: Build the application
+        run: npm run build
+     
