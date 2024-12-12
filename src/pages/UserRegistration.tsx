@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/user-login-register-styles.css";
 
 const UserRegistrationPage: React.FC = () => {
   const [userData, setUserData] = useState({
@@ -18,56 +19,58 @@ const UserRegistrationPage: React.FC = () => {
   }
 
   return (
-    <div className="container">
-      <h1 className="welcome-heading">Welcome to TaskEasy!!</h1>
-      <h3 className="page-heading">Register</h3>
-      <div className="form">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          data-testid ="username"
-          value={userData.username}
-          onChange={handleChangeInInput}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={userData.password}
-          onChange={handleChangeInInput}
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={userData.confirmPassword}
-          onChange={handleChangeInInput}
-          required
-        />
-        <button
-          type="submit"
-          className="button"
-          onClick={() => {
-            handleSubmit();
-          }}
-        >
-          Submit
-        </button>
+    <div className="backgroundImage">
+      <div className="container">
+        <h1>Welcome to TaskEasy!!</h1>
+        <h2>Register</h2>
+        <div className="form">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            data-testid="username"
+            value={userData.username}
+            onChange={handleChangeInInput}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={userData.password}
+            onChange={handleChangeInInput}
+            required
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={userData.confirmPassword}
+            onChange={handleChangeInInput}
+            required
+          />
+          <button
+            type="submit"
+            className="button"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            Submit
+          </button>
+        </div>
+        <h4>
+          Already have an account?{" "}
+          <span
+            onClick={() => {
+              navigate("/");
+            }}
+            className="spanContent"
+          >
+            Login
+          </span>
+        </h4>
       </div>
-      <h5>
-        Already have an account?{" "}
-        <span
-          onClick={() => {
-            navigate("/");
-          }}
-          className="spanContent"
-        >
-          Login
-        </span>
-      </h5>
     </div>
   );
 };
