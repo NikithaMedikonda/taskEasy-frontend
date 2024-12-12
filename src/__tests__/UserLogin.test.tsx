@@ -3,6 +3,12 @@ import UserLoginPage from '../pages/UserLogin';
 
 global.fetch = jest.fn();
 
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockNavigate,
+}));
+
 describe("LoginPage Component", () => {
     beforeAll(() => {
         window.alert = jest.fn();  
@@ -28,5 +34,12 @@ describe("LoginPage Component", () => {
 
         expect(screen.getByPlaceholderText(/Username/i)).toHaveValue("Nikitha");
         expect(screen.getByPlaceholderText(/Password/i)).toHaveValue("1234");
+    });
+
+    test("navigates to the registration page when clicking Register", () => {
+        render(<UserLoginPage/>)
+        fireEvent.click(screen.getByText(/Register/i));
+
+        expect(mockNavigate).toHaveBeenCalledWith("/register");
     });
 });

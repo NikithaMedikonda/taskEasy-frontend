@@ -1,13 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import UserRegistrationPage from "../pages/UserRegistration";
-import { MemoryRouter } from "react-router-dom";
 
 global.fetch = jest.fn();
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockNavigate,
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockNavigate,
 }));
 
 describe("RegistrationPage Component", () => {
@@ -21,7 +20,7 @@ describe("RegistrationPage Component", () => {
 
   test("renders input fields and submit button", () => {
     render(<UserRegistrationPage/>)
-    expect(screen.getByText("Welcome to TaskEasy!!")).toBeInTheDocument();
+    expect(screen.getByText("Register an Account to TaskEasy!!")).toBeInTheDocument();
     expect(screen.getByText("Register")).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Username/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
@@ -45,6 +44,7 @@ describe("RegistrationPage Component", () => {
   test("navigates to the login page when clicking Login", () => {
     render(<UserRegistrationPage/>)
     fireEvent.click(screen.getByText(/Login/i));
-    expect(mockNavigate).toHaveBeenCalledWith("/");
-  });
+
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
+});
 });
