@@ -14,17 +14,19 @@ const UserRegistrationPage: React.FC = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  function handleSubmit() {
-    throw new Error("Function not implemented.");
-  }
+  const submitRegisterForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Register data submitted:", userData);
+  };
 
   return (
-    <div className="backgroundImage">
-      <div className="container">
-        <h1>Welcome to TaskEasy!!</h1>
+    <div className="login-register-backgroundImage">
+      <div className="login-register-container">
+        <h1>Register an Account to TaskEasy!!</h1>
         <h2>Register</h2>
-        <div className="form">
+        <form className="login-register-form" onSubmit={submitRegisterForm}>
           <input
+            className="login-register-input"
             type="text"
             name="username"
             placeholder="Username"
@@ -34,6 +36,7 @@ const UserRegistrationPage: React.FC = () => {
             required
           />
           <input
+            className="login-register-input"
             type="password"
             name="password"
             placeholder="Password"
@@ -42,6 +45,7 @@ const UserRegistrationPage: React.FC = () => {
             required
           />
           <input
+            className="login-register-input"
             type="password"
             name="confirmPassword"
             placeholder="Confirm Password"
@@ -49,27 +53,21 @@ const UserRegistrationPage: React.FC = () => {
             onChange={handleChangeInInput}
             required
           />
-          <button
-            type="submit"
-            className="button"
-            onClick={() => {
-              handleSubmit();
-            }}
-          >
+          <button type="submit" className="login-register-submit-button">
             Submit
           </button>
-        </div>
-        <h4>
+        </form>
+        <h3>
           Already have an account?{" "}
           <span
             onClick={() => {
-              navigate("/");
+              navigate("/login");
             }}
             className="spanContent"
           >
             Login
           </span>
-        </h4>
+        </h3>
       </div>
     </div>
   );
