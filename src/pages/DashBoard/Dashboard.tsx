@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const TASK_CATEGORIES = ["all", "work", "personal", "other"];
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortOption, setSortOption] = useState("");
@@ -17,6 +16,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       console.log("Fetching tasks...");
+      setFilteredTasks([]);
     };
     fetchTasks();
   }, []);
@@ -34,6 +34,7 @@ const Dashboard = () => {
   };
 
   const logout = () => {
+    setUsername('')
     console.log("Logout");
   };
 
