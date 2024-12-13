@@ -19,6 +19,7 @@ const UserRegistrationPage: React.FC = () => {
   const navigate = useNavigate();
 
   const submitRegisterForm: SubmitHandler<RegisterFormInputs> = (data) => {
+    navigate('/dashboard')
     console.log("Register data submitted:", data);
   };
 
