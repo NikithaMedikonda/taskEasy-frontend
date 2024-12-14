@@ -13,6 +13,7 @@ const UserLoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const submitLoginForm: SubmitHandler<LoginFormInputs> = (data) => {
+    navigate('/dashboard')
     console.log("Login data submitted:", data);
   };
 
