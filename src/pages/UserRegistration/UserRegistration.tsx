@@ -2,6 +2,8 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "../UserLogin/user-login-register-styles.css";
+import { useUserContext } from "../../context/UserContext";
+import { API } from "../../api";
 
 interface RegisterFormInputs {
   username: string;
@@ -17,10 +19,28 @@ const UserRegistrationPage: React.FC = () => {
     formState: { errors },
   } = useForm<RegisterFormInputs>();
   const navigate = useNavigate();
+ const {setUser} = useUserContext();
 
-  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = (data) => {
-    navigate('/dashboard')
-    console.log("Register data submitted:", data);
+  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = async ( data) => {
+    try {
+      const response = await fetch(`${API}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result)
+        setUser(result);
+        navigate("/dashboard");
+      } else {
+        alert(`Error occured while registering`);
+      }
+    } catch (error) {
+      alert("Error occured while fetching user details");
+    }
   };
 
   return (
@@ -64,11 +84,9 @@ const UserRegistrationPage: React.FC = () => {
               },
             })}
           />
-         {errors.confirmPassword && (
-          <p className="error-message">
-            {errors.confirmPassword.message}
-          </p>
-        )}
+          {errors.confirmPassword && (
+            <p className="error-message">{errors.confirmPassword.message}</p>
+          )}
           <button type="submit" className="login-register-submit-button">
             Submit
           </button>
