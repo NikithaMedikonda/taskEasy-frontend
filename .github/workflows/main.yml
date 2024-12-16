@@ -3,7 +3,7 @@ name: Build and Test
 on:
   push:
     branches:
-      - feature/dashboard
+      - feature/backend-integrate
 
 jobs:
   build:
