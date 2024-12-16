@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import HomePage from "./HomePage";
+import { UserProvider } from "../../context/UserContext";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -10,19 +11,31 @@ jest.mock("react-router-dom", () => ({
 
 describe("HomePage", () => {
   test("should render the HomePage correctly", () => {
-    render(<HomePage/>)
+    render(
+      <UserProvider>
+        <HomePage />
+      </UserProvider>
+    );
     expect(screen.getByText("Task Easy")).toBeInTheDocument();
     expect(screen.getByText("Let's Get Started!")).toBeInTheDocument();
   });
 
   test("should navigate to the Login page when the Login button is clicked", () => {
-    render(<HomePage/>)
+    render(
+      <UserProvider>
+        <HomePage />
+      </UserProvider>
+    );
     fireEvent.click(screen.getByText("Login"));
     expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
 
   test("should navigate to the Register page when the Register button is clicked", () => {
-    render(<HomePage/>)
+    render(
+      <UserProvider>
+        <HomePage />
+      </UserProvider>
+    );
     fireEvent.click(screen.getByText("Register"));
     expect(mockNavigate).toHaveBeenCalledWith("/register");
   });
