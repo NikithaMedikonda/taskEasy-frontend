@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./user-login-register-styles.css";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useUserContext } from "../../context/UserContext";
+import { loginUser } from "../../api/userLoginApi";
+import "./user-login-register-styles.css";
 
 interface LoginFormInputs {
   username: string;
@@ -9,12 +11,22 @@ interface LoginFormInputs {
 }
 
 const UserLoginPage: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
 
-  const submitLoginForm: SubmitHandler<LoginFormInputs> = (data) => {
-    navigate('/dashboard')
-    console.log("Login data submitted:", data);
+  const submitLoginForm: SubmitHandler<LoginFormInputs> = async (data) => {
+    try {
+      const result = await loginUser(data);
+      setUser(result);
+      navigate("/dashboard");
+    } catch (error: any) {
+      alert(error.message || "An error occurred during registration");
+    }
   };
 
   return (
@@ -22,7 +34,10 @@ const UserLoginPage: React.FC = () => {
       <div className="login-register-container">
         <h1>Welcome Back to TaskEasy!!</h1>
         <h2>Login</h2>
-        <form className="login-register-form" onSubmit={handleSubmit(submitLoginForm)}>
+        <form
+          className="login-register-form"
+          onSubmit={handleSubmit(submitLoginForm)}
+        >
           <input
             className="login-register-input"
             type="text"
