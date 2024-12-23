@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import { UserProvider } from "../../context/UserContext";
 
 const mockNavigate = jest.fn();
 
@@ -17,7 +17,9 @@ describe("Dashboard Component", () => {
 
   const renderDashboard = () => {
     render(
+      <UserProvider>
         <Dashboard />
+      </UserProvider>
     );
   };
 
@@ -26,7 +28,7 @@ describe("Dashboard Component", () => {
 
   test("renders header with username and buttons", () => {
     renderDashboard();
-    expect(screen.getByText(/Welcome Guest!! 👋/i)).toBeInTheDocument();
+    expect(screen.getByText(/Welcome !! 👋/i)).toBeInTheDocument();
     expect(screen.getByText(/＋ Add New Task/i)).toBeInTheDocument();
     expect(screen.getByText("👤")).toBeInTheDocument();
   });
@@ -37,18 +39,6 @@ describe("Dashboard Component", () => {
       screen.getByText(category.charAt(0).toUpperCase() + category.slice(1))
     );
     buttons.forEach((button: any) => expect(button).toBeInTheDocument());
-  });
-
-  test("toggles profile modal", () => {
-    renderDashboard();
-
-    const profileButton = screen.getByText("👤");
-    fireEvent.click(profileButton);
-    expect(screen.getByText("Guest")).toBeInTheDocument();
-    expect(screen.getByText(/Logout/i)).toBeInTheDocument();
-
-    fireEvent.click(profileButton);
-    expect(screen.queryByText("Guest")).not.toBeInTheDocument();
   });
 
   test("navigates to add task page", () => {
@@ -64,13 +54,18 @@ describe("Dashboard Component", () => {
 
     const allButton = screen.getByText("All");
     const workButton = screen.getByText("Work");
+    const personalButton = screen.getByText("Personal");
+    const otherButton = screen.getByText("Other");
+
 
     fireEvent.click(workButton);
-    expect(allButton).not.toHaveClass("filter-button-active");
-    expect(workButton).toHaveClass("filter-button-active");
+    expect(allButton).not.toHaveClass("filter-button filter-button-active");
+    expect(workButton).toHaveClass("filter-button filter-button-active");
+    expect(personalButton).not.toHaveClass("filter-button filter-button-active");
+    expect(otherButton).not.toHaveClass("filter-button filter-button-active");
   });
 
-  test("updates sort option", () => {
+  test("updates sort option by priority", () => {
     renderDashboard();
 
     const sortSelect = screen.getByRole("combobox") as HTMLSelectElement;
@@ -79,10 +74,40 @@ describe("Dashboard Component", () => {
     expect(sortSelect.value).toBe("priority");
   });
 
+  test("updates sort option by completion", () => {
+    renderDashboard();
+  
+    const sortSelect = screen.getByRole("combobox") as HTMLSelectElement;
+    fireEvent.change(sortSelect, { target: { value: "completion" } });
+  
+    expect(sortSelect.value).toBe("completion");
+  });
+  
   test("renders no tasks available message", () => {
     renderDashboard();
 
     expect(screen.getByText(/No all tasks available/i)).toBeInTheDocument();
   });
+
+  test("toggles profile modal", () => {
+    renderDashboard();
   
+    const profileButton = screen.getByText("👤");
+    fireEvent.click(profileButton);
+    expect(screen.getByText(/Logout/i)).toBeInTheDocument();
+  
+    fireEvent.click(profileButton);
+  });
+
+  test("toggles profile modal visibility", () => {
+    renderDashboard();
+
+    const profileButton = screen.getByText("👤");
+    fireEvent.click(profileButton);
+    expect(screen.getByText(/Logout/i)).toBeInTheDocument();
+
+    fireEvent.click(profileButton); 
+    expect(screen.queryByText(/Logout/i)).not.toBeInTheDocument();
+  });
+
 });
