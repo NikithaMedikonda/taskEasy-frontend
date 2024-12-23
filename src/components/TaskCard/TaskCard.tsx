@@ -25,8 +25,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
   const handleDelete  = async () => {
     if (!window.confirm("Are you sure you want to delete this task?")) return;
 
-    const isDeleted = await deleteTask(task.id);
-
     try {
       const isDeleted = await deleteTask(task.id);
       if (isDeleted) {
