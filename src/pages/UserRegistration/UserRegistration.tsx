@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "../UserLogin/user-login-register-styles.css";
 import { useUserContext } from "../../context/UserContext";
-import { API } from "../../api";
+import { registerUser } from "../../api/userRegisterApi";
 
 interface RegisterFormInputs {
   username: string;
@@ -19,27 +19,17 @@ const UserRegistrationPage: React.FC = () => {
     formState: { errors },
   } = useForm<RegisterFormInputs>();
   const navigate = useNavigate();
- const {setUser} = useUserContext();
+  const { setUser } = useUserContext();
 
-  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = async ( data) => {
+  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = async (
+    data
+  ) => {
     try {
-      const response = await fetch(`${API}/users/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result)
-        setUser(result);
-        navigate("/dashboard");
-      } else {
-        alert(`Error occured while registering`);
-      }
-    } catch (error) {
-      alert("Error occured while fetching user details");
+      const result = await registerUser(data);
+      setUser(result);
+      navigate("/dashboard");
+    } catch (error: any) {
+      alert(error.message || "An error occurred during registration");
     }
   };
 
