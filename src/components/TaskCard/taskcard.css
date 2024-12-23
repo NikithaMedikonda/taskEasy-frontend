@@ -1,0 +1,28 @@
+.task-card {
+  flex: 1 1 calc(33.33% - 20px);
+  box-sizing: border-box;
+  border: 1px solid #2b026c;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.delete-btn,
+.edit-btn {
+  padding: 8px 12px;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
