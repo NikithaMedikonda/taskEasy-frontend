@@ -93,7 +93,7 @@ describe("RegistrationPage Component", () => {
   test("shows alert if registration fails", async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      statusText: "Registration failed",
+      json: async () => ({ message: "Username already exists" }) 
     });
 
     render(
@@ -108,7 +108,7 @@ describe("RegistrationPage Component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(() => expect(window.alert).toHaveBeenCalledWith("Error occured while registering"));
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith("Username already exists"));
   });
   
   test("shows alert if fetch fails during registration", async () => {
@@ -134,7 +134,7 @@ describe("RegistrationPage Component", () => {
   
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
-        "Error occured while fetching user details"
+        "Network Error"
       );
     });
   });
