@@ -5,6 +5,7 @@ import UserLoginPage from "./pages/UserLogin/UserLogin";
 import HomePage from "./pages/HomePage/HomePage";
 import Dashboard from "./pages/DashBoard/Dashboard";
 import { UserProvider } from "./context/UserContext";
+import AddTaskForm from "./pages/AddTask/AddTask";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
           <Route path="/login" element={<UserLoginPage />} />
           <Route path="/register" element={<UserRegistrationPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/addtask"
+            element={<AddTaskForm onSubmit={() => {}} />}
+          />
         </Routes>
       </Router>
     </UserProvider>
