@@ -2,8 +2,8 @@ version: "3"
 
 services:
   taskeasy-frontend:
-    container_name: taskeasy-frontend
-    image: taskeasy-frontend
+    container_name: taskeasy-frontend-jenkins
+    image: taskeasy-frontend-jenkins
     build: 
       context: .
       dockerfile: Dockerfile
