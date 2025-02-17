@@ -1,0 +1,63 @@
+.add-task-container {
+background-color: lavender;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-task-box {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  width: 400px;
+}
+
+.add-task-box h3 {
+  color: #343a40;
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.add-task-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-task-box label {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.add-task-box input,
+.add-task-box select {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.add-task-box button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-task-box button:hover {
+  background-color: #0056b3;
+}
+
+.add-task-btn:hover,
+.logout-btn:hover {
+  background-color: #48a1ff;
+}

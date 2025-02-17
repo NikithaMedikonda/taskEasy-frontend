@@ -2,6 +2,8 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "../UserLogin/user-login-register-styles.css";
+import { useUserContext } from "../../context/UserContext";
+import { registerUser } from "../../api/userRegisterApi";
 
 interface RegisterFormInputs {
   username: string;
@@ -17,10 +19,18 @@ const UserRegistrationPage: React.FC = () => {
     formState: { errors },
   } = useForm<RegisterFormInputs>();
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
 
-  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = (data) => {
-    navigate('/dashboard')
-    console.log("Register data submitted:", data);
+  const submitRegisterForm: SubmitHandler<RegisterFormInputs> = async (
+    data
+  ) => {
+    try {
+      const result = await registerUser(data);
+      setUser(result);
+      navigate("/dashboard");
+    } catch (error: any) {
+      alert(error.message || "An error occurred during registration");
+    }
   };
 
   return (
@@ -64,11 +74,9 @@ const UserRegistrationPage: React.FC = () => {
               },
             })}
           />
-         {errors.confirmPassword && (
-          <p className="error-message">
-            {errors.confirmPassword.message}
-          </p>
-        )}
+          {errors.confirmPassword && (
+            <p className="error-message">{errors.confirmPassword.message}</p>
+          )}
           <button type="submit" className="login-register-submit-button">
             Submit
           </button>

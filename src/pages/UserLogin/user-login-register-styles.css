@@ -34,7 +34,7 @@
   padding-bottom: 10px;
   padding-left: 50px;
   padding-right: 50px;
-  background-color: rgb(170, 218, 207);
+  background-color: rgb(234, 209, 255);
 }
 
 .login-register-input {
@@ -46,8 +46,8 @@
 
 .login-register-submit-button {
   margin-top: 10px;
-  background-color: rgb(47, 119, 103);
-  border: solid rgb(3, 79, 57) 1px;
+  background-color: rgb(84, 47, 119);
+  border: solid rgb(45, 3, 79) 1px;
   border-radius: 5px;
   width: fit-content;
   padding-top: 5px;
@@ -59,7 +59,7 @@
 }
 
 .spanContent {
-  color: rgb(4, 108, 61);
+  color: rgb(49, 4, 108);
 }
 
 .spanContent:hover {

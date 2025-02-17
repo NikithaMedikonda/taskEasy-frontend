@@ -4,10 +4,12 @@ import UserRegistrationPage from "./pages/UserRegistration/UserRegistration";
 import UserLoginPage from "./pages/UserLogin/UserLogin";
 import HomePage from "./pages/HomePage/HomePage";
 import Dashboard from "./pages/DashBoard/Dashboard";
+import { UserProvider } from "./context/UserContext";
 import AddTaskForm from "./pages/AddTask/AddTask";
 
 function App() {
   return (
+    <UserProvider>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -20,6 +22,7 @@ function App() {
           />
         </Routes>
       </Router>
+    </UserProvider>
   );
 }
 
